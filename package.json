@@ -2,9 +2,10 @@
   "name": "vscode-agent-envs",
   "displayName": "智能体环境",
   "description": "在 VS Code 中管理和切换 Claude Code 与 Codex CLI 配置档。",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "publisher": "xiaohaoo",
   "license": "MIT",
+  "icon": "resources/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/xiaohaoo/vscode-agent-envs.git"
