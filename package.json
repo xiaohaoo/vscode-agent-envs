@@ -5,6 +5,10 @@
   "version": "0.0.9",
   "publisher": "xiaohaoo",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaohaoo/vscode-agent-envs.git"
+  },
   "engines": {
     "vscode": "^1.96.0"
   },
