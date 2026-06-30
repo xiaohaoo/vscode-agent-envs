@@ -1,8 +1,8 @@
 {
   "name": "vscode-agent-envs",
-  "displayName": "智能体环境",
-  "description": "在 VS Code 中管理和切换 Claude Code 与 Codex CLI 配置档。",
-  "version": "0.0.10",
+  "displayName": "Agent Envs",
+  "description": "Manage and switch Claude Code and Codex CLI profiles from VS Code.",
+  "version": "0.0.11",
   "publisher": "xiaohaoo",
   "license": "MIT",
   "icon": "resources/icon.png",
@@ -31,49 +31,49 @@
     "commands": [
       {
         "command": "agentEnvs.addProfile",
-        "title": "添加配置档",
-        "category": "智能体环境",
+        "title": "Add Profile",
+        "category": "Agent Envs",
         "icon": "$(add)"
       },
       {
         "command": "agentEnvs.editProfile",
-        "title": "编辑配置档",
-        "category": "智能体环境",
+        "title": "Edit Profile",
+        "category": "Agent Envs",
         "icon": "$(edit)"
       },
       {
         "command": "agentEnvs.deleteProfile",
-        "title": "删除配置档",
-        "category": "智能体环境",
+        "title": "Delete Profile",
+        "category": "Agent Envs",
         "icon": "$(trash)"
       },
       {
         "command": "agentEnvs.refresh",
-        "title": "刷新配置档",
-        "category": "智能体环境",
+        "title": "Refresh Profiles",
+        "category": "Agent Envs",
         "icon": "$(refresh)"
       },
       {
         "command": "agentEnvs.applyProfile",
-        "title": "应用配置档",
-        "category": "智能体环境",
+        "title": "Apply Profile",
+        "category": "Agent Envs",
         "icon": "$(check)"
       },
       {
         "command": "agentEnvs.openConfig",
-        "title": "打开智能体环境配置",
-        "category": "智能体环境",
+        "title": "Open Agent Envs Config",
+        "category": "Agent Envs",
         "icon": "$(json)"
       },
       {
         "command": "agentEnvs.revealNativeConfig",
-        "title": "显示原生配置文件",
-        "category": "智能体环境",
+        "title": "Reveal Native Config",
+        "category": "Agent Envs",
         "icon": "$(go-to-file)"
       }
     ],
     "configuration": {
-      "title": "智能体环境",
+      "title": "Agent Envs",
       "properties": {}
     },
     "menus": {
@@ -126,7 +126,7 @@
       "activitybar": [
         {
           "id": "agentEnvs",
-          "title": "智能体环境",
+          "title": "Agent Envs",
           "icon": "resources/agent-envs.svg"
         }
       ]
@@ -135,9 +135,9 @@
       "agentEnvs": [
         {
           "id": "agentEnvs.profilesView",
-          "name": "配置档",
+          "name": "Profiles",
           "icon": "resources/agent-envs.svg",
-          "contextualTitle": "智能体环境"
+          "contextualTitle": "Agent Envs"
         }
       ]
     }

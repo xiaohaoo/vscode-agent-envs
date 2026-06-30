@@ -53,8 +53,8 @@ export class ProfilesTreeProvider implements vscode.TreeDataProvider<AgentEnvsTr
       return [
         {
           type: "message",
-          label: "暂无配置档",
-          description: "添加一个配置档开始使用"
+          label: "No profiles",
+          description: "Add a profile to get started"
         }
       ];
     }
@@ -91,7 +91,7 @@ export class ProfilesTreeProvider implements vscode.TreeDataProvider<AgentEnvsTr
   private getAgentTreeItem(element: AgentTreeItem): vscode.TreeItem {
     const item = new vscode.TreeItem(element.agent.name, vscode.TreeItemCollapsibleState.Expanded);
     item.id = element.agent.key;
-    item.description = element.config.active ? `当前: ${element.config.active}` : "暂无当前配置档";
+    item.description = element.config.active ? `active: ${element.config.active}` : "no active profile";
     item.tooltip = `${element.agent.description}\n${item.description}`;
     item.contextValue = "agent";
     item.iconPath = new vscode.ThemeIcon(getAgentIcon(element.agent.key));
@@ -112,13 +112,13 @@ export class ProfilesTreeProvider implements vscode.TreeDataProvider<AgentEnvsTr
     }
 
     item.id = `${element.agent.key}:${element.name}`;
-    item.description = element.active ? "当前" : summaryList[0];
+    item.description = element.active ? "active" : summaryList[0];
     item.tooltip = [element.name, ...summaryList].join("\n");
     item.contextValue = "profile";
     item.iconPath = new vscode.ThemeIcon(element.active ? "pass-filled" : "circle-outline");
     item.command = {
       command: "agentEnvs.applyProfile",
-      title: "应用配置档",
+      title: "Apply Profile",
       arguments: [element]
     };
 

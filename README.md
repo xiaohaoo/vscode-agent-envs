@@ -1,36 +1,36 @@
-# 智能体环境
+# Agent Envs
 
-用于管理 Claude Code 和 Codex CLI 配置档的 VS Code 插件。
+VS Code extension for managing Claude Code and Codex CLI profiles.
 
-配置档保存在 VS Code 全局存储目录：
+Profiles are stored in VS Code global storage:
 
 ```text
 %APPDATA%\Code\User\globalStorage\xiaohaoo.vscode-agent-envs\profiles.json
 ```
 
-Token 通过 VS Code SecretStorage 保存，不会写入 `profiles.json`。
+Tokens are stored through VS Code SecretStorage instead of being written to `profiles.json`.
 
-## 功能
+## Features
 
-- 在侧边栏展示 Claude Code 和 Codex 配置档。
-- 在树视图中添加、编辑、删除配置档。
-- 从 VS Code 中应用选中的配置档。
-- 将 Claude Code 配置写入 `~/.claude/settings.json`。
-- 将 Codex 配置写入 `~/.codex/config.toml` 和 `~/.codex/auth.json`。
-- 打开私有 `profiles.json` 便于查看。
+- Shows Claude Code and Codex profiles in the Activity Bar.
+- Adds, edits, and deletes profiles from the tree view.
+- Applies a selected profile from VS Code.
+- Writes Claude Code profiles to `~/.claude/settings.json`.
+- Writes Codex profiles to `~/.codex/config.toml` and `~/.codex/auth.json`.
+- Opens the private `profiles.json` file for inspection.
 
-## 开发
+## Development
 
 ```bash
 npm install
 npm run compile
 ```
 
-在 VS Code 中按 `F5` 启动扩展开发窗口。
+Press `F5` in VS Code to launch an Extension Development Host.
 
-## 编辑配置档
+## Editing Profiles
 
-- 点击智能体环境视图标题栏的 `+` 添加配置档。
-- 右键 Claude Code 或 Codex 可为对应智能体添加配置档。
-- 右键配置档可编辑或删除。
-- 点击配置档可应用。
+- Click the `+` button in the Agent Envs view to add a profile.
+- Right-click Claude Code or Codex to add a profile for that agent.
+- Right-click a profile to edit or delete it.
+- Click a profile to apply it.

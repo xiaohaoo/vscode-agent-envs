@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext): void {
         }
         await configStore.save(agent.key, agentConfig);
         treeProvider.refresh();
-        void vscode.window.showInformationMessage(`已添加 ${agent.name}: ${profileInput.name}`);
+        void vscode.window.showInformationMessage(`Added ${agent.name}: ${profileInput.name}`);
       });
     }),
     vscode.commands.registerCommand("agentEnvs.editProfile", async (item?: AgentEnvsTreeItem) => {
@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext): void {
         const agentConfig = await configStore.load(profileItem.agent.key);
         const currentProfileMap = agentConfig.profileMap[profileItem.name];
         if (!currentProfileMap) {
-          void vscode.window.showWarningMessage(`配置档 "${profileItem.name}" 已不存在。`);
+          void vscode.window.showWarningMessage(`Profile "${profileItem.name}" no longer exists.`);
           treeProvider.refresh();
           return;
         }
@@ -74,7 +74,7 @@ export function activate(context: vscode.ExtensionContext): void {
         agentConfig.profileMap[profileInput.name] = profileInput.profileMap;
         await configStore.save(profileItem.agent.key, agentConfig);
         treeProvider.refresh();
-        void vscode.window.showInformationMessage(`已更新 ${profileItem.agent.name}: ${profileInput.name}`);
+        void vscode.window.showInformationMessage(`Updated ${profileItem.agent.name}: ${profileInput.name}`);
       });
     }),
     vscode.commands.registerCommand("agentEnvs.deleteProfile", async (item?: AgentEnvsTreeItem) => {
@@ -85,11 +85,11 @@ export function activate(context: vscode.ExtensionContext): void {
         }
 
         const confirmed = await vscode.window.showWarningMessage(
-          `确定删除 ${profileItem.agent.name} 配置档 "${profileItem.name}" 吗？`,
+          `Delete ${profileItem.agent.name} profile "${profileItem.name}"?`,
           { modal: true },
-          "删除"
+          "Delete"
         );
-        if (confirmed !== "删除") {
+        if (confirmed !== "Delete") {
           return;
         }
 
@@ -105,7 +105,7 @@ export function activate(context: vscode.ExtensionContext): void {
         }
         await configStore.save(profileItem.agent.key, agentConfig);
         treeProvider.refresh();
-        void vscode.window.showInformationMessage(`已删除 ${profileItem.agent.name}: ${profileItem.name}`);
+        void vscode.window.showInformationMessage(`Deleted ${profileItem.agent.name}: ${profileItem.name}`);
       });
     }),
     vscode.commands.registerCommand("agentEnvs.applyProfile", async (item?: AgentEnvsTreeItem) => {
@@ -118,7 +118,7 @@ export function activate(context: vscode.ExtensionContext): void {
         const agentConfig = await configStore.load(profileItem.agent.key);
         const profileMap = agentConfig.profileMap[profileItem.name];
         if (!profileMap) {
-          void vscode.window.showWarningMessage(`配置档 "${profileItem.name}" 已不存在。`);
+          void vscode.window.showWarningMessage(`Profile "${profileItem.name}" no longer exists.`);
           treeProvider.refresh();
           return;
         }
@@ -128,7 +128,7 @@ export function activate(context: vscode.ExtensionContext): void {
         agentConfig.active = profileItem.name;
         await configStore.save(profileItem.agent.key, agentConfig);
         treeProvider.refresh();
-        void vscode.window.showInformationMessage(`已应用 ${profileItem.agent.name}: ${profileItem.name}`);
+        void vscode.window.showInformationMessage(`Applied ${profileItem.agent.name}: ${profileItem.name}`);
       });
     }),
     vscode.commands.registerCommand("agentEnvs.openConfig", async () => {
@@ -152,7 +152,7 @@ export function activate(context: vscode.ExtensionContext): void {
           ? configPathList[0]
           : await vscode.window.showQuickPick(configPathList, {
             ignoreFocusOut: true,
-            placeHolder: "选择一个原生配置文件"
+            placeHolder: "Select a native config file"
           });
 
         if (selectedPath) {
@@ -180,7 +180,7 @@ async function resolveProfileItem(item: AgentEnvsTreeItem | undefined, configSto
       quickPickItemList.push({
         label: name,
         description: agent.name,
-        detail: agentConfig.active === name ? "当前配置档" : undefined,
+        detail: agentConfig.active === name ? "Active profile" : undefined,
         profileItem: {
           type: "profile",
           agent,
@@ -194,7 +194,7 @@ async function resolveProfileItem(item: AgentEnvsTreeItem | undefined, configSto
 
   const selected = await vscode.window.showQuickPick(quickPickItemList, {
     ignoreFocusOut: true,
-    placeHolder: "选择要应用的配置档"
+    placeHolder: "Select a profile to apply"
   });
 
   return selected?.profileItem;
@@ -204,13 +204,13 @@ async function pickAgent(configStore: ConfigStore): Promise<AgentDefinition | un
   const configMap = await configStore.loadAll();
   const itemList: Array<vscode.QuickPickItem & { agent: AgentDefinition }> = agentDefinitionList.map((agent) => ({
     label: agent.name,
-    description: configMap[agent.key]?.active ? `当前: ${configMap[agent.key]?.active}` : agent.description,
+    description: configMap[agent.key]?.active ? `active: ${configMap[agent.key]?.active}` : agent.description,
     agent
   }));
 
   const selected = await vscode.window.showQuickPick(itemList, {
     ignoreFocusOut: true,
-    placeHolder: "选择智能体"
+    placeHolder: "Select an agent"
   });
 
   return selected?.agent;
@@ -225,8 +225,8 @@ async function collectProfileInput(
 ): Promise<{ name: string; profileMap: ProfileMap } | undefined> {
   const name = await vscode.window.showInputBox({
     ignoreFocusOut: true,
-    title: currentName ? `编辑 ${agent.name} 配置档` : `添加 ${agent.name} 配置档`,
-    prompt: "配置档名称",
+    title: currentName ? `Edit ${agent.name} Profile` : `Add ${agent.name} Profile`,
+    prompt: "Profile name",
     value: currentName ?? "",
     validateInput: (value) => validateProfileName(value, profileMap, currentName)
   });
@@ -236,10 +236,10 @@ async function collectProfileInput(
 
   const baseUrl = await vscode.window.showInputBox({
     ignoreFocusOut: true,
-    title: currentName ? `编辑 ${agent.name} 配置档` : `添加 ${agent.name} 配置档`,
+    title: currentName ? `Edit ${agent.name} Profile` : `Add ${agent.name} Profile`,
     prompt: "API base URL",
     value: getString(currentProfileMap, agent.baseUrlKey),
-    validateInput: (value) => value.trim() ? undefined : "API base URL 不能为空。"
+    validateInput: (value) => value.trim() ? undefined : "API base URL is required."
   });
   if (baseUrl === undefined) {
     return undefined;
@@ -250,11 +250,11 @@ async function collectProfileInput(
     : "";
   const token = await vscode.window.showInputBox({
     ignoreFocusOut: true,
-    title: currentName ? `编辑 ${agent.name} 配置档` : `添加 ${agent.name} 配置档`,
-    prompt: currentToken ? "Token。直接确认可保持当前值。" : "Token",
+    title: currentName ? `Edit ${agent.name} Profile` : `Add ${agent.name} Profile`,
+    prompt: currentToken ? "Token. Leave unchanged by accepting the existing value." : "Token",
     value: currentToken,
     password: true,
-    validateInput: (value) => value.trim() ? undefined : "Token 不能为空。"
+    validateInput: (value) => value.trim() ? undefined : "Token is required."
   });
   if (token === undefined) {
     return undefined;
@@ -295,11 +295,11 @@ function validateProfileName(
 ): string | undefined {
   const name = value.trim();
   if (!name) {
-    return "配置档名称不能为空。";
+    return "Profile name is required.";
   }
 
   if (name !== currentName && Object.prototype.hasOwnProperty.call(profileMap, name)) {
-    return `配置档 "${name}" 已存在。`;
+    return `Profile "${name}" already exists.`;
   }
 
   return undefined;
@@ -324,6 +324,6 @@ async function runWithErrorMessage(task: () => Promise<void>): Promise<void> {
     await task();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    void vscode.window.showErrorMessage(`智能体环境: ${message}`);
+    void vscode.window.showErrorMessage(`Agent Envs: ${message}`);
   }
 }
